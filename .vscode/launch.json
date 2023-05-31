@@ -8,13 +8,14 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "/home/mxy/anaconda3/envs/llama/lib/python3.9/site-packages/torch/distributed/launch.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "-m torch.distributed.launch",
+                "-m",
+                "torch.distributed.launch",
                 "--nproc_per_node=1",
-                "example.py",
+                "example.py"
             ],
             "env": {"CUDA_VISIBLE_DEVICES":"0"},
         }
