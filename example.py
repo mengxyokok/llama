@@ -20,6 +20,7 @@ def setup_model_parallel() -> Tuple[int, int]:
     local_rank = int(os.environ.get("LOCAL_RANK", -1))
     world_size = int(os.environ.get("WORLD_SIZE", -1))
 
+
     torch.distributed.init_process_group("nccl")
     initialize_model_parallel(world_size)
     torch.cuda.set_device(local_rank)
@@ -72,6 +73,7 @@ def main(
     max_batch_size: int = 32,
 ):
     local_rank, world_size = setup_model_parallel()
+    # local_rank, world_size=(0,1)
     if local_rank > 0:
         sys.stdout = open(os.devnull, "w")
 
@@ -116,4 +118,7 @@ cheese =>""",
 
 
 if __name__ == "__main__":
-    fire.Fire(main)
+    # os.environ["LOCAL_RANK"] = "0"
+    # os.environ["WORLD_SIZE"] = "1"
+    main(ckpt_dir="ckpt/7B", tokenizer_path="ckpt/tokenizer.model")
+    # fire.Fire(main)
